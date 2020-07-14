@@ -1,10 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+//using Model;
 
-namespace PacienteES.Infraestructure.Repository.Context
+namespace Repository.Context
 {
-    class ApplicationDbContext
+    public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext()
+        {
+        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+           : base(options)
+        {
+        }
+      //  public DbSet<MovimientoInventario> MovimientoInventario { get; set; }
+      //  public DbSet<MovimientoInventarioDetalle> MovimientoInventarioDetalle { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            // Model Contraints
+            ModelConfig(modelBuilder);
+        }
+        private void ModelConfig(ModelBuilder modelBuilder)
+        {
+          /*  new MovimientoInventarioConfiguration(modelBuilder.Entity<MovimientoInventario>());
+            new MovimientoDetalleConfiguration(modelBuilder.Entity<MovimientoInventarioDetalle>());
+            */
+
+
+        }    
     }
 }
