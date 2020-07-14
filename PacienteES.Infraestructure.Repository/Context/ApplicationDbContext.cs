@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-//using Model;
+using PacienteES.Domain.Entities;
 
 namespace Repository.Context
 {
@@ -12,7 +12,7 @@ namespace Repository.Context
            : base(options)
         {
         }
-      //  public DbSet<MovimientoInventario> MovimientoInventario { get; set; }
+        public DbSet<Paciente> Paciente { get; set; }
       //  public DbSet<MovimientoInventarioDetalle> MovimientoInventarioDetalle { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
