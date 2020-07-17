@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Context;
+using Domain;
 using Domain.Abstracts;
 using Domain.SeedWork;
 using System;
@@ -57,6 +58,11 @@ namespace Application.Base
         public virtual IEnumerable<T> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public DataCollection<T> Paged(int page, int take)
+        {
+            throw new NotImplementedException();
         }
     }
 }

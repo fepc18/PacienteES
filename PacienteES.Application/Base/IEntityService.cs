@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Context;
+using Domain;
 using Domain.SeedWork;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Application.Base
         void Create(T entity);
         void Delete(T entity);
         IEnumerable<T> GetAll();
+        DataCollection<T> Paged(int page, int take);
         void Update(T entity);
     }
 }

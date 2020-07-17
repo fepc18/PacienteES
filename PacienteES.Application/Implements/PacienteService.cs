@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Text;
 using UnitOfWork;
 using Application.Abstract;
+using System.Linq;
+using Context;
+
 namespace Application.Implements
 {
     public class PacienteService : IPacienteService
@@ -18,12 +21,12 @@ namespace Application.Implements
             _unitOfWork = unitOfWork;
             _pacienteRepository = pacienteRepository;
         }
-      
+
 
         public void Create(Paciente paciente)
         {
             _unitOfWork.Repository.PacienteRepository.Add(paciente);
-         
+
             _unitOfWork.SaveChanges();
         }
 
@@ -36,18 +39,27 @@ namespace Application.Implements
 
         public Paciente Find(object id)
         {
-            return _unitOfWork.Repository.PacienteRepository.FirstOrDefault(x=>x.Id== Convert.ToInt32(id));
+            return _unitOfWork.Repository.PacienteRepository.FirstOrDefault(x => x.Id == Convert.ToInt32(id));
         }
 
         public IEnumerable<Paciente> GetAll()
         {
-            return _unitOfWork.Repository.PacienteRepository.GetAll();            
+            return _unitOfWork.Repository.PacienteRepository.GetAll();
+        }
+
+        public DataCollection<Paciente> Paged(int page, int take)
+        {
+            return _unitOfWork.Repository.PacienteRepository.GetPaged(
+                page: page,
+                take: take,
+                orderBy: x => x.OrderByDescending(y => y.Id)
+            );
         }
 
         public void Update(Paciente paciente)
         {
             _unitOfWork.Repository.PacienteRepository.Update(paciente);
-            
+
             _unitOfWork.SaveChanges();
         }
     }

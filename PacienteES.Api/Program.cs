@@ -31,6 +31,9 @@ namespace PacienteES.Api
                 {
                     config.AddCommandLine(args);
                 }
+
+                //var currentConfig = config.Build();
+
                 // Estas configuraciones se deben guardar fuera del código fuente del App.
                 //config.AddAzureKeyVault(currentConfig["Vault"],
                 //    currentConfig["ClientId"],
