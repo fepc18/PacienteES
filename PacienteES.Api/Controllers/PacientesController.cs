@@ -46,6 +46,11 @@ namespace PacienteES.Api.Controllers
         {
              return _configuration["Environment"];
         }
+        [HttpGet("TestVariableEntorno")]
+        public ActionResult<string> GetConfigurationEntorno()
+        {
+            return _configuration["TestVariableAmbiente"];
+        }
 
         // GET: api/Pacientes
         [HttpGet]
