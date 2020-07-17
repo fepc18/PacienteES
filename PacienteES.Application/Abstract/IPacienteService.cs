@@ -1,12 +1,14 @@
-﻿using PacienteES.Domain.Entities;
+﻿using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Domain.SeedWork;
+using Application.Base;
 
-namespace PacienteES.Application.Abstract
+namespace Application.Abstract
 {
-    public interface IPacienteService
+    public interface IPacienteService : IEntityService<Paciente>
     {
-        void Create(Paciente paciente);
+
     }
 }

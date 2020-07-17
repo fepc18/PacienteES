@@ -1,5 +1,5 @@
 ﻿using Models;
-using PacienteES.Domain.Entities;
+using Domain.Entities;
 using Repository.Context;
 using Repository.Interfaces;
 using System;

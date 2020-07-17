@@ -1,32 +1,54 @@
-﻿using PacienteES.Application.Abstract;
-using PacienteES.Domain.Entities;
+﻿using Domain.Entities;
+
+using Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnitOfWork;
-
-namespace PacienteES.Application.Implements
+using Application.Abstract;
+namespace Application.Implements
 {
-    class PacienteService : IPacienteService
+    public class PacienteService : IPacienteService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IPacienteRepository _pacienteRepository;
 
-        public PacienteService(IUnitOfWork unitOfWork)
+        public PacienteService(IUnitOfWork unitOfWork, IPacienteRepository pacienteRepository)
         {
             _unitOfWork = unitOfWork;
+            _pacienteRepository = pacienteRepository;
         }
+      
+
         public void Create(Paciente paciente)
         {
-            throw new NotImplementedException();
+            _unitOfWork.Repository.PacienteRepository.Add(paciente);
+         
+            _unitOfWork.SaveChanges();
         }
 
-        /*public void Create(UserExample model)
+        public void Delete(Paciente paciente)
         {
-            // Call to your repository
-            _uow.Repository.UserRepository.Add(model);
+            _unitOfWork.Repository.PacienteRepository.Remove(paciente);
 
-            // Save changes
-            _uow.SaveChanges();
-        }*/
+            _unitOfWork.SaveChanges();
+        }
+
+        public Paciente Find(object id)
+        {
+            return _unitOfWork.Repository.PacienteRepository.FirstOrDefault(x=>x.Id== Convert.ToInt32(id));
+        }
+
+        public IEnumerable<Paciente> GetAll()
+        {
+            return _unitOfWork.Repository.PacienteRepository.GetAll();            
+        }
+
+        public void Update(Paciente paciente)
+        {
+            _unitOfWork.Repository.PacienteRepository.Update(paciente);
+            
+            _unitOfWork.SaveChanges();
+        }
     }
 }

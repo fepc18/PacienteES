@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Repository.Context;
 
 namespace PacienteES.Api
 {
@@ -25,6 +27,9 @@ namespace PacienteES.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCaching();
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PacientesConnectionString")));
+            services.AddDbContext<DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PacientesConnectionString")));
             services.AddControllers();
         }
 
@@ -39,7 +44,7 @@ namespace PacienteES.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseResponseCaching();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
