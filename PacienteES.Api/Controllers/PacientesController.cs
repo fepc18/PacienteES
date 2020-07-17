@@ -7,6 +7,7 @@ using Application.Implements;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Repository.Context;
 using Repository.Repositories;
@@ -21,13 +22,16 @@ namespace PacienteES.Api.Controllers
     {
    
         private readonly IPacienteService _service;
+        private readonly IConfiguration _configuration;
+
         private ILogger<PacientesController> _logger { get; }
 
-        public PacientesController(ApplicationDbContext db,ILogger<PacientesController> logger)
+        public PacientesController(ApplicationDbContext db,ILogger<PacientesController> logger,IConfiguration configuration)
         {
             ApplicationDbContext _context = db;
             _service = new PacienteService(new UnitOfWorkContainer(_context), new PacienteRepository(_context));
             _logger = logger;
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
         // GET api/Pacientes/Cache
         [HttpGet("Cache")]
@@ -35,6 +39,12 @@ namespace PacienteES.Api.Controllers
         public ActionResult<string> GetCache()
         {
             return DateTime.Now.Second.ToString();
+        }
+        // GET api/Pacientes/Cache
+        [HttpGet("TestConfiguration")]      
+        public ActionResult<string> GetConfiguration()
+        {
+             return _configuration["Environment"];
         }
 
         // GET: api/Pacientes

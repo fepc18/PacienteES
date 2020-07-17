@@ -18,6 +18,24 @@ namespace PacienteES.Api
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((env,config)=>
+            {
+               
+                var ambiente = env.HostingEnvironment.EnvironmentName;
+                config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+                config.AddJsonFile($"appsettings.{ambiente}.json", optional: true, reloadOnChange: true);
+                
+                config.AddEnvironmentVariables();
+
+                if (args != null)
+                {
+                    config.AddCommandLine(args);
+                }
+                // Estas configuraciones se deben guardar fuera del código fuente del App.
+                //config.AddAzureKeyVault(currentConfig["Vault"],
+                //    currentConfig["ClientId"],
+                //    currentConfig["ClientSecret"]);
+            })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
