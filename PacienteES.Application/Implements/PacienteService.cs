@@ -44,7 +44,7 @@ namespace Application.Implements
 
         public IEnumerable<Paciente> GetAll()
         {
-            return _unitOfWork.Repository.PacienteRepository.GetAll();
+            return _pacienteRepository.GetAll();
         }
 
         public DataCollection<Paciente> Paged(int page, int take)
