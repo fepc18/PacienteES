@@ -24,6 +24,7 @@ namespace PacienteES.Api.Test
             var mockApplicationDbContext = new Mock<ApplicationDbContext>();
             var mockLogger = new Mock<ILogger<PacientesController>>();
             var mockConfiguration = new Mock<IConfiguration>();
+            mockApplicationDbContext.Setup(x=>x.)
 
             var pacientesController = new PacientesController(mockApplicationDbContext.Object, mockLogger.Object, mockConfiguration.Object);
             //prueba

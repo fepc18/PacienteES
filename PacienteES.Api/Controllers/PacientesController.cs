@@ -27,14 +27,16 @@ namespace PacienteES.Api.Controllers
         private readonly IConfiguration _configuration;
 
         private ILogger<PacientesController> _logger { get; }
-
+        /**Constructor para controlador que necesita flexibilidad en los contextos y uso de UnitOfWork*/
         public PacientesController(ApplicationDbContext db,ILogger<PacientesController> logger,IConfiguration configuration)
         {
+
             ApplicationDbContext _context = db;
             _service = new PacienteService(new UnitOfWorkContainer(_context), new PacienteRepository(_context));
             _logger = logger;
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
+
         // GET api/Pacientes/Cache
         [HttpGet("Cache")]
         [ResponseCache(Duration = 15)]
