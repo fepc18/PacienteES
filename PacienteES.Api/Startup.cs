@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Application.Abstract;
+using Application.Implements;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +17,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Repository.Context;
+using Repository.Repositories;
+using UnitOfWork;
 
 //[assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace PacienteES.Api
@@ -32,9 +36,13 @@ namespace PacienteES.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddResponseCaching();
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PacientesConnectionString")));
-            services.AddDbContext<DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PacientesConnectionString")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["sql:cn"]));
             services.AddControllers();
+            services.AddScoped<IPacienteService, PacienteService>();
+            services.AddScoped<IUnitOfWork, UnitOfWorkContainer>();
+            services.AddScoped<IPacienteRepository, PacienteRepository>();
+            services.AddScoped<ApplicationDbContext>();
+          //  services.AddScoped(typeof(IRepository<>), typeof(GenericRepo<>))
 
             services.AddSwaggerGen(config => {
                 config.SwaggerDoc("v1", new OpenApiInfo

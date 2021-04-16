@@ -25,21 +25,21 @@ namespace Application.Implements
 
         public void Create(Paciente paciente)
         {
-            _unitOfWork.Repository.PacienteRepository.Add(paciente);
+            _pacienteRepository.Add(paciente);
 
             _unitOfWork.SaveChanges();
         }
 
         public void Delete(Paciente paciente)
         {
-            _unitOfWork.Repository.PacienteRepository.Remove(paciente);
+            _pacienteRepository.Remove(paciente);
 
             _unitOfWork.SaveChanges();
         }
 
         public Paciente Find(object id)
         {
-            return _unitOfWork.Repository.PacienteRepository.FirstOrDefault(x => x.Id == Convert.ToInt32(id));
+            return _pacienteRepository.FirstOrDefault(x => x.Id == Convert.ToInt32(id));
         }
 
         public IEnumerable<Paciente> GetAll()
@@ -49,7 +49,7 @@ namespace Application.Implements
 
         public DataCollection<Paciente> Paged(int page, int take)
         {
-            return _unitOfWork.Repository.PacienteRepository.GetPaged(
+            return _pacienteRepository.GetPaged(
                 page: page,
                 take: take,
                 orderBy: x => x.OrderByDescending(y => y.Id)
@@ -58,7 +58,7 @@ namespace Application.Implements
 
         public void Update(Paciente paciente)
         {
-            _unitOfWork.Repository.PacienteRepository.Update(paciente);
+            _pacienteRepository.Update(paciente);
 
             _unitOfWork.SaveChanges();
         }

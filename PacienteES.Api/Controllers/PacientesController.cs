@@ -28,11 +28,10 @@ namespace PacienteES.Api.Controllers
 
         private ILogger<PacientesController> _logger { get; }
         /**Constructor para controlador que necesita flexibilidad en los contextos y uso de UnitOfWork*/
-        public PacientesController(ApplicationDbContext db,ILogger<PacientesController> logger,IConfiguration configuration)
+        public PacientesController(ILogger<PacientesController> logger,IConfiguration configuration,IPacienteService pacienteService)
         {
 
-            ApplicationDbContext _context = db;
-            _service = new PacienteService(new UnitOfWorkContainer(_context), new PacienteRepository(_context));
+            _service = pacienteService;
             _logger = logger;
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }

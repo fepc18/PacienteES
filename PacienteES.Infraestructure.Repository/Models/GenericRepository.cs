@@ -16,6 +16,11 @@ namespace Models
     {
         protected ApplicationDbContext _context;
 
+        //public GenericRepository(ApplicationDbContext context)
+        //{
+        //    _context = context;
+            
+        //}
         protected IQueryable<T> PrepareQuery(
             IQueryable<T> query,
             Expression<Func<T, bool>> predicate = null,

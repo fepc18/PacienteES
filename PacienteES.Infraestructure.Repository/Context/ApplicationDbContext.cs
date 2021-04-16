@@ -6,13 +6,14 @@ namespace Repository.Context
 {
     public class ApplicationDbContext : DbContext
     {
-       /* public ApplicationDbContext() : base("Name=ApplicationDbContext")
-        {
-
-        }*/
+        
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
            : base(options)
         {
+        }
+        public void Save()
+        {
+            this.SaveChanges();
         }
         public DbSet<Paciente> Paciente { get; set; }
         //  public DbSet<MovimientoInventarioDetalle> MovimientoInventarioDetalle { get; set; }
